@@ -1,0 +1,57 @@
+#Terraform Destroy Workflow
+name: "Terraform Destroy Workflow"
+
+on:
+#  push:
+#    branches: 
+#      - main
+#      - 'feature/*'
+#  pull_request:
+#    branches:
+#      - main
+#      - 'feature/*'
+  workflow_dispatch:
+    inputs:
+      confirm_destroy:
+        description: 'Type DESTROY to confirm'
+        required: true
+        type: string
+
+env: 
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ROOT_PATH: ${{ github.workspace }}
+
+jobs:
+  terraform_destroy:
+    name: "Terraform destroy"
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+
+    # Only run if the user typed DESTROY exactly
+    if: ${{ github.event.inputs.confirm_destroy == 'DESTROY' }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ${{ env.ROOT_PATH }}
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
+        working-directory: ${{ env.ROOT_PATH }}
