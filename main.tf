@@ -1,9 +1,8 @@
 # Subscription info
 data "azurerm_subscription" "current" {}
 
-# -------------------------
+
 # Monthly Budget for Subscription Threshold Notifications
-# -------------------------
 resource "azurerm_consumption_budget_subscription" "monthly_budget" {
   name            = var.budget_name
   subscription_id = data.azurerm_subscription.current.id
@@ -30,9 +29,7 @@ resource "azurerm_consumption_budget_subscription" "monthly_budget" {
   }
 }
 
-# -------------------------
 # Cost view for your subscription
-# -------------------------
 resource "azurerm_subscription_cost_management_view" "monthly_view" {
   name         = var.cost_view_name
   display_name = var.cost_view_display_name
@@ -44,6 +41,22 @@ resource "azurerm_subscription_cost_management_view" "monthly_view" {
   report_type = var.cost_view_report_type
   timeframe   = var.cost_view_timeframe
 
+# Non-table charts
+  pivot {
+    name = "ServiceName"
+    type = var.cost_view_pivot_type
+  }
+
+  pivot {
+    name = "ResourceGroupName"
+    type = var.cost_view_pivot_type
+  }
+
+  pivot {
+    name = "SubscriptionName"
+    type = var.cost_view_pivot_type
+  }
+
   dataset {
     granularity = var.cost_view_granularity
 
@@ -54,9 +67,7 @@ resource "azurerm_subscription_cost_management_view" "monthly_view" {
   }
 }
 
-# -------------------------
 # Scheduled email on the Nth of every month at configurable hour
-# -------------------------
 resource "azurerm_cost_management_scheduled_action" "monthly_email" {
   name         = var.scheduled_action_name
   display_name = var.scheduled_action_display_name

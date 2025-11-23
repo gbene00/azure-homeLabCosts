@@ -71,6 +71,12 @@ variable "cost_view_display_name" {
   default     = "Monthly Subscription Cost"
 }
 
+variable "cost_view_pivot_type" {
+  description = "Pivot type for the Cost Management view pivots."
+  type        = string
+  default     = "Dimension"
+}
+
 variable "cost_view_chart_type" {
   description = "Chart type for the cost view."
   type        = string
@@ -124,13 +130,13 @@ variable "scheduled_action_frequency" {
 variable "scheduled_action_start_date" {
   description = "Start date for the scheduled action."
   type        = string
-  default     = "2025-01-01T00:00:00Z"
+  default     = "2025-12-01T00:00:00Z"
 }
 
 variable "scheduled_action_end_date" {
   description = "End date for the scheduled action."
   type        = string
-  default     = "2030-01-01T00:00:00Z"
+  default     = "2026-11-01T00:00:00Z"
 }
 
 variable "scheduled_action_hour_of_day" {
