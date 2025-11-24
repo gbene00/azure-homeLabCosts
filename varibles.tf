@@ -32,9 +32,7 @@ variable "budget_end_date" {
 variable "budget_contact_emails" {
   description = "Email addresses to notify for budget alerts."
   type        = list(string)
-  default = [
-    "bene.gabriel3@gmail.com",
-  ]
+  sensitive   = true
 }
 
 # Shared operator + type for all thresholds
@@ -154,13 +152,11 @@ variable "scheduled_action_day_of_month" {
 variable "scheduled_action_email_sender" {
   description = "Logical 'from' address shown in the scheduled email."
   type        = string
-  default     = "no-reply@contoso.local"
+  sensitive   = true
 }
 
 variable "scheduled_action_email_recipients" {
   description = "Recipients of the scheduled cost email."
   type        = list(string)
-  default = [
-    "bene.gabriel3@gmail.com",
-  ]
+  sensitive   = true
 }
