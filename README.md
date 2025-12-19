@@ -4,7 +4,6 @@
 
 This repository contains a Terraform-based infrastructure-as-code solution designed to implement cost management and budget alerts for Azure subscriptions. It automates the provisioning of Azure Cost Management constructs—primarily Azure Budgets with multiple thresholds and email alerting—to help proactively monitor and control spending in cloud environments.
 
-**Key Features**
 
 ### **Terraform-driven provisioning**
 Uses Terraform configuration files (*.tf) to define, deploy, and manage Azure resources in a repeatable and version-controlled way.
