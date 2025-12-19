@@ -53,7 +53,7 @@ Budget limits, email recipients, thresholds, and target scopes are parameterized
 
   ##  **Automation**
 
-_.github/workflows/_  
+- _.github/workflows/_  
   Contains GitHub Actions workflows used to:
     - Automate Terraform workflows (init, plan, apply) with deploy-terraform.yml
     - Automate Terraform teardown with destroy-terraform.yml.
